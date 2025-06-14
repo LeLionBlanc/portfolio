@@ -1,0 +1,172 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../layouts/BaseLayout.astro';
+
+const showcases = await getCollection('showcases');
+const sortedShowcases = showcases.sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
+
+function getPlacementColor(placement?: number): string {
+  if (!placement) return 'text-gray-600';
+  if (placement === 1) return 'text-yellow-600';
+  if (placement <= 3) return 'text-orange-600';
+  if (placement <= 10) return 'text-blue-600';
+  return 'text-gray-600';
+}
+
+function getPlacementSuffix(placement: number): string {
+  if (placement % 10 === 1 && placement % 100 !== 11) return 'st';
+  if (placement % 10 === 2 && placement % 100 !== 12) return 'nd';
+  if (placement % 10 === 3 && placement % 100 !== 13) return 'rd';
+  return 'th';
+}
+---
+
+<Layout
+  title="Showcases - DrakeLeLionBlanc"
+  description="Marathon runs, live showcases, and special event performances"
+  pubDate={new Date()}
+>
+  <main class="max-w-6xl mx-auto px-4 py-8">
+    <div class="text-center mb-12">
+      <h1 class="text-4xl font-bold text-gray-900 mb-4">Live Showcases</h1>
+      <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+        Marathon runs, exhibition matches, and special event performances. These showcases highlight both competitive runs and educational content for the community.
+      </p>
+    </div>
+
+    <!-- Showcase Stats -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+      <div class="bg-white rounded-lg shadow-md p-6 text-center">
+        <div class="text-3xl font-bold text-blue-600 mb-2">{showcases.length}</div>
+        <div class="text-gray-600">Total Showcases</div>
+      </div>
+      <div class="bg-white rounded-lg shadow-md p-6 text-center">
+        <div class="text-3xl font-bold text-green-600 mb-2">
+          {showcases.filter(s => s.data.placement && s.data.placement <= 3).length}
+        </div>
+        <div class="text-gray-600">Top 3 Finishes</div>
+      </div>
+      <div class="bg-white rounded-lg shadow-md p-6 text-center">
+        <div class="text-3xl font-bold text-purple-600 mb-2">
+          {new Set(showcases.map(s => s.data.game)).size}
+        </div>
+        <div class="text-gray-600">Games Featured</div>
+      </div>
+    </div>
+
+    <!-- Showcases Grid -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      {sortedShowcases.map((showcase) => (
+        <div class="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
+          <!-- Game Header -->
+          <div class="h-32 bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center relative">
+            <div class="text-white text-center">
+              <h3 class="text-xl font-bold">{showcase.data.game}</h3>
+              <p class="text-blue-100">{showcase.data.category}</p>
+            </div>
+            {showcase.data.placement && (
+              <div class="absolute top-4 right-4 bg-white rounded-full w-12 h-12 flex items-center justify-center">
+                <span class={`text-lg font-bold ${getPlacementColor(showcase.data.placement)}`}>
+                  #{showcase.data.placement}
+                </span>
+              </div>
+            )}
+          </div>
+          
+          <div class="p-6">
+            <div class="mb-4">
+              <h2 class="text-xl font-bold text-gray-900 mb-2">{showcase.data.title}</h2>
+              <div class="flex items-center space-x-4 text-sm text-gray-600">
+                <span class="bg-gray-100 px-3 py-1 rounded-full">{showcase.data.event}</span>
+                <span>{new Date(showcase.data.date).toLocaleDateString()}</span>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-4 mb-4">
+              <div>
+                <p class="text-sm text-gray-600 mb-1">Final Time</p>
+                <p class="text-2xl font-bold text-blue-600">{showcase.data.finalTime}</p>
+              </div>
+              {showcase.data.placement && (
+                <div>
+                  <p class="text-sm text-gray-600 mb-1">Placement</p>
+                  <p class={`text-2xl font-bold ${getPlacementColor(showcase.data.placement)}`}>
+                    {showcase.data.placement}{getPlacementSuffix(showcase.data.placement)} place
+                  </p>
+                </div>
+              )}
+            </div>
+
+            {showcase.data.notes && (
+              <p class="text-gray-600 mb-4">{showcase.data.notes}</p>
+            )}
+
+            <div class="flex items-center justify-between">
+              {showcase.data.videoUrl ? (
+                <a 
+                  href={showcase.data.videoUrl} 
+                  target="_blank"
+                  class="inline-flex items-center text-blue-600 hover:text-blue-800 transition-colors"
+                >
+                  <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M8 5v14l11-7z"/>
+                  </svg>
+                  Watch Run
+                </a>
+              ) : (
+                <span class="text-gray-400 text-sm">Video not available</span>
+              )}
+              
+              <div class="flex items-center space-x-2">
+                {showcase.data.placement === 1 && (
+                  <svg class="w-5 h-5 text-yellow-500" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                  </svg>
+                )}
+                {showcase.data.placement && showcase.data.placement <= 3 && showcase.data.placement !== 1 && (
+                  <svg class="w-5 h-5 text-orange-500" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                  </svg>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    {showcases.length === 0 && (
+      <div class="text-center py-12">
+        <div class="w-24 h-24 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+          <svg class="w-12 h-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+          </svg>
+        </div>
+        <h3 class="text-xl font-semibold text-gray-900 mb-2">No Showcases Yet</h3>
+        <p class="text-gray-600">Check back soon for upcoming marathon runs and live showcases!</p>
+      </div>
+    )}
+
+    <!-- Call to Action -->
+    <div class="mt-12 text-center bg-gradient-to-r from-purple-500 to-blue-600 rounded-lg p-8 text-white">
+      <h2 class="text-3xl font-bold mb-4">Want to See More?</h2>
+      <p class="text-xl mb-6 text-purple-100">
+        Follow my live streams to catch future showcase runs and marathon events
+      </p>
+      <div class="flex justify-center space-x-4">
+        <a 
+          href="/twitch" 
+          class="bg-white text-purple-600 px-6 py-3 rounded-lg hover:bg-gray-100 transition-colors font-semibold"
+        >
+          Watch Live
+        </a>
+        <a 
+          href="/events" 
+          class="border-2 border-white text-white px-6 py-3 rounded-lg hover:bg-white hover:text-purple-600 transition-colors font-semibold"
+        >
+          View All Events
+        </a>
+      </div>
+    </div>
+  </main>
+</Layout>

@@ -1,0 +1,58 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../layouts/BaseLayout.astro';
+import GameCard from '../components/GameCard.astro';
+
+const speedruns = await getCollection('speedruns');
+const sortedSpeedruns = speedruns.sort((a, b) => a.data.order - b.data.order);
+---
+
+<Layout
+  title="Speedruns - DrakeLeLionBlanc"
+  description="Personal best times and speedrun achievements across various games"
+  pubDate={new Date()}
+>
+  <main class="max-w-7xl mx-auto px-4 py-8">
+    <div class="text-center mb-12">
+      <h1 class="text-4xl font-bold text-gray-900 mb-4">Speedruns</h1>
+      <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+        Personal best times and achievements across various games. Click on categories to view detailed information and video runs.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      {sortedSpeedruns.map((speedrun) =>
+        speedrun.data.categories.map((category) => (
+          <GameCard
+            game={speedrun.data.game}
+            category={category.name}
+            time={category.personalBest}
+            placement={category.rank}
+            videoUrl={category.videoUrl}
+            notes={`${category.platform} • ${new Date(category.date).toLocaleDateString()}`}
+            imageUrl={speedrun.data.image?.src}
+          />
+        ))
+      )}
+    </div>
+
+    <div class="mt-12 text-center">
+      <div class="bg-gray-50 rounded-lg p-6">
+        <h2 class="text-2xl font-bold text-gray-900 mb-4">Want to see more runs?</h2>
+        <p class="text-gray-600 mb-4">
+          Check out my full profile on Speedrun.com for complete leaderboards and additional categories.
+        </p>
+        <a 
+          href="https://speedrun.com/user/DrakeLeLionBlanc" 
+          target="_blank"
+          class="inline-flex items-center bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors"
+        >
+          <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+          </svg>
+          View Full Profile
+        </a>
+      </div>
+    </div>
+  </main>
+</Layout>

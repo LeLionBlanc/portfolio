@@ -1,0 +1,201 @@
+---
+export interface Props {
+  url: string;
+  title?: string;
+  description?: string;
+  thumbnail?: string;
+  platform?: 'youtube' | 'twitch' | 'vimeo' | 'generic';
+  aspectRatio?: '16:9' | '4:3' | '1:1';
+  autoplay?: boolean;
+  controls?: boolean;
+  muted?: boolean;
+}
+
+const { 
+  url, 
+  title, 
+  description, 
+  thumbnail, 
+  platform = 'generic',
+  aspectRatio = '16:9',
+  autoplay = false,
+  controls = true,
+  muted = false
+} = Astro.props;
+
+// Extract video ID and create embed URL based on platform
+function getEmbedUrl(url: string, platform: string): string {
+  switch (platform) {
+    case 'youtube':
+      const youtubeMatch = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([^&\n?#]+)/);
+      if (youtubeMatch) {
+        const videoId = youtubeMatch[1];
+        const params = new URLSearchParams();
+        if (autoplay) params.set('autoplay', '1');
+        if (muted) params.set('mute', '1');
+        if (!controls) params.set('controls', '0');
+        return `https://www.youtube.com/embed/${videoId}?${params.toString()}`;
+      }
+      break;
+    
+    case 'twitch':
+      const twitchMatch = url.match(/twitch\.tv\/videos\/(\d+)/);
+      if (twitchMatch) {
+        const videoId = twitchMatch[1];
+        const params = new URLSearchParams();
+        params.set('video', `v${videoId}`);
+        params.set('parent', window.location.hostname);
+        if (autoplay) params.set('autoplay', 'true');
+        if (muted) params.set('muted', 'true');
+        return `https://player.twitch.tv/?${params.toString()}`;
+      }
+      break;
+    
+    case 'vimeo':
+      const vimeoMatch = url.match(/vimeo\.com\/(\d+)/);
+      if (vimeoMatch) {
+        const videoId = vimeoMatch[1];
+        const params = new URLSearchParams();
+        if (autoplay) params.set('autoplay', '1');
+        if (muted) params.set('muted', '1');
+        return `https://player.vimeo.com/video/${videoId}?${params.toString()}`;
+      }
+      break;
+  }
+  
+  return url; // Return original URL if no match
+}
+
+const embedUrl = getEmbedUrl(url, platform);
+
+// Aspect ratio classes
+const aspectRatioClasses = {
+  '16:9': 'aspect-video',
+  '4:3': 'aspect-[4/3]',
+  '1:1': 'aspect-square'
+};
+
+const aspectClass = aspectRatioClasses[aspectRatio];
+
+// Platform-specific styling
+const platformStyles = {
+  youtube: { bg: 'bg-red-50', border: 'border-red-200', text: 'text-red-600' },
+  twitch: { bg: 'bg-purple-50', border: 'border-purple-200', text: 'text-purple-600' },
+  vimeo: { bg: 'bg-blue-50', border: 'border-blue-200', text: 'text-blue-600' },
+  generic: { bg: 'bg-gray-50', border: 'border-gray-200', text: 'text-gray-600' }
+};
+
+const styles = platformStyles[platform];
+---
+
+<div class="bg-white rounded-lg shadow-lg overflow-hidden">
+  <!-- Video Header -->
+  {(title || description) && (
+    <div class={`p-4 ${styles.bg} border-b ${styles.border}`}>
+      {title && (
+        <h3 class="text-lg font-semibold text-gray-900 mb-1">{title}</h3>
+      )}
+      {description && (
+        <p class="text-sm text-gray-600">{description}</p>
+      )}
+      <div class="flex items-center mt-2">
+        <span class={`text-xs font-medium ${styles.text} bg-white px-2 py-1 rounded-full`}>
+          {platform.charAt(0).toUpperCase() + platform.slice(1)}
+        </span>
+      </div>
+    </div>
+  )}
+
+  <!-- Video Container -->
+  <div class={`relative ${aspectClass} bg-black`}>
+    {embedUrl.includes('embed') || embedUrl.includes('player') ? (
+      <!-- Embedded iframe for supported platforms -->
+      <iframe
+        src={embedUrl}
+        title={title || 'Video Player'}
+        class="absolute inset-0 w-full h-full"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen
+      ></iframe>
+    ) : (
+      <!-- Fallback for direct video links or unsupported platforms -->
+      <div class="absolute inset-0 flex items-center justify-center">
+        {thumbnail ? (
+          <div class="relative w-full h-full group cursor-pointer">
+            <img 
+              src={thumbnail} 
+              alt={title || 'Video thumbnail'}
+              class="w-full h-full object-cover"
+            />
+            <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center group-hover:bg-opacity-60 transition-all duration-300">
+              <a 
+                href={url} 
+                target="_blank"
+                class="bg-white bg-opacity-90 hover:bg-opacity-100 rounded-full p-4 transition-all duration-300 transform group-hover:scale-110"
+              >
+                <svg class="w-8 h-8 text-gray-800" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M8 5v14l11-7z"/>
+                </svg>
+              </a>
+            </div>
+          </div>
+        ) : (
+          <div class="text-center text-white">
+            <a 
+              href={url} 
+              target="_blank"
+              class="inline-flex items-center space-x-3 bg-white bg-opacity-20 hover:bg-opacity-30 rounded-lg px-6 py-4 transition-all duration-300"
+            >
+              <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M8 5v14l11-7z"/>
+              </svg>
+              <span class="font-medium">Watch Video</span>
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+              </svg>
+            </a>
+          </div>
+        )}
+      </div>
+    )}
+  </div>
+
+  <!-- Video Footer -->
+  <div class="p-4 bg-gray-50">
+    <div class="flex items-center justify-between">
+      <div class="flex items-center space-x-2 text-sm text-gray-600">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+        </svg>
+        <span>Video Player</span>
+      </div>
+      
+      <a 
+        href={url} 
+        target="_blank"
+        class={`text-sm font-medium ${styles.text} hover:underline flex items-center space-x-1`}
+      >
+        <span>Open in {platform.charAt(0).toUpperCase() + platform.slice(1)}</span>
+        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+        </svg>
+      </a>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Add click handler for thumbnail videos
+  document.addEventListener('DOMContentLoaded', function() {
+    const thumbnailVideos = document.querySelectorAll('[data-video-url]');
+    thumbnailVideos.forEach(video => {
+      video.addEventListener('click', function(this: Element) {
+        const url = this.getAttribute('data-video-url');
+        if (url) {
+          window.open(url, '_blank');
+        }
+      });
+    });
+  });
+</script>

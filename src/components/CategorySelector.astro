@@ -1,0 +1,121 @@
+---
+export interface Props {
+  categories: string[];
+  selectedCategory?: string;
+  showAll?: boolean;
+}
+
+const { categories, selectedCategory = 'all', showAll = true } = Astro.props;
+
+// Create unique categories list
+const uniqueCategories = [...new Set(categories)];
+const allCategories = showAll ? ['all', ...uniqueCategories] : uniqueCategories;
+---
+
+<div class="category-selector mb-8">
+  <div class="flex flex-wrap gap-2 justify-center">
+    {allCategories.map((category) => (
+      <button
+        data-category={category}
+        class={`category-btn px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
+          category === selectedCategory
+            ? 'bg-blue-600 text-white shadow-lg'
+            : 'bg-gray-100 text-gray-700 hover:bg-gray-200 hover:shadow-md'
+        }`}
+      >
+        {category === 'all' ? 'All Categories' : category}
+      </button>
+    ))}
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const categoryButtons = document.querySelectorAll('.category-btn');
+    const gameCards = document.querySelectorAll('[data-game-category]');
+    
+    categoryButtons.forEach(button => {
+      button.addEventListener('click', function(this: Element) {
+        const selectedCategory = this.getAttribute('data-category');
+        
+        // Update button states
+        categoryButtons.forEach(btn => {
+          btn.classList.remove('bg-blue-600', 'text-white', 'shadow-lg');
+          btn.classList.add('bg-gray-100', 'text-gray-700');
+        });
+        
+        this.classList.remove('bg-gray-100', 'text-gray-700');
+        this.classList.add('bg-blue-600', 'text-white', 'shadow-lg');
+        
+        // Filter game cards
+        gameCards.forEach(card => {
+          const cardCategory = card.getAttribute('data-game-category');
+          
+          if (selectedCategory === 'all' || cardCategory === selectedCategory) {
+            (card as HTMLElement).style.display = 'block';
+            card.classList.remove('hidden');
+            
+            // Add animation
+            card.classList.add('animate-fade-in');
+            setTimeout(() => {
+              card.classList.remove('animate-fade-in');
+            }, 300);
+          } else {
+            (card as HTMLElement).style.display = 'none';
+            card.classList.add('hidden');
+          }
+        });
+        
+        // Update URL without page reload
+        const url = new URL(window.location.href);
+        if (selectedCategory === 'all') {
+          url.searchParams.delete('category');
+        } else if (selectedCategory) {
+          url.searchParams.set('category', selectedCategory);
+        }
+        window.history.replaceState({}, '', url.toString());
+        
+        // Dispatch custom event for other components to listen to
+        window.dispatchEvent(new CustomEvent('categoryChanged', {
+          detail: { category: selectedCategory }
+        }));
+      });
+    });
+    
+    // Initialize from URL parameters
+    const urlParams = new URLSearchParams(window.location.search);
+    const urlCategory = urlParams.get('category');
+    
+    if (urlCategory) {
+      const targetButton = document.querySelector(`[data-category="${urlCategory}"]`);
+      if (targetButton) {
+        (targetButton as HTMLElement).click();
+      }
+    }
+  });
+</script>
+
+<style>
+  .animate-fade-in {
+    animation: fadeIn 0.3s ease-in-out;
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .category-btn:hover {
+    transform: translateY(-1px);
+  }
+  
+  .category-btn:active {
+    transform: translateY(0);
+  }
+</style>

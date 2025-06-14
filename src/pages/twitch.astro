@@ -1,0 +1,246 @@
+---
+import Layout from '../layouts/BlogPost.astro';
+import { SOCIAL_LINKS } from '../consts';
+---
+
+<Layout
+  title="Twitch - DrakeLeLionBlanc"
+  description="Live streaming schedule, highlights, and Twitch information"
+  pubDate={new Date()}
+>
+  <main class="max-w-6xl mx-auto px-4 py-8">
+    <div class="text-center mb-12">
+      <h1 class="text-4xl font-bold text-gray-900 mb-4">Live on Twitch</h1>
+      <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+        Join me for live speedrun attempts, practice sessions, and community games. Interactive chat and real-time engagement with fellow gamers.
+      </p>
+    </div>
+
+    <!-- Stream Status -->
+    <div class="bg-gradient-to-r from-purple-500 to-purple-600 rounded-lg p-8 text-white mb-12">
+      <div class="flex items-center justify-between">
+        <div>
+          <h2 class="text-2xl font-bold mb-2">Currently Offline</h2>
+          <p class="text-purple-100 mb-4">Next stream: Check schedule below</p>
+          <a 
+            href={SOCIAL_LINKS.twitch} 
+            target="_blank"
+            class="bg-white text-purple-600 px-6 py-3 rounded-lg hover:bg-gray-100 transition-colors font-semibold inline-flex items-center"
+          >
+            <svg viewBox="0 0 24 24" class="w-5 h-5 mr-2" fill="currentColor">
+              <path d="M11.571 4.714h1.715v5.143H11.57zm4.715 0H18v5.143h-1.714zM6 0L1.714 4.286v15.428h5.143V24l4.286-4.286h3.428L22.286 12V0zm14.571 11.143l-3.428 3.428h-3.429l-3 3v-3H6.857V1.714h13.714Z"/>
+            </svg>
+            Follow on Twitch
+          </a>
+        </div>
+        <div class="hidden md:block">
+          <div class="w-32 h-32 bg-purple-400 rounded-lg flex items-center justify-center">
+            <svg class="w-16 h-16 text-white" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M8 5v14l11-7z"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
+      <!-- Stream Schedule -->
+      <div class="bg-white rounded-lg shadow-lg p-6">
+        <h2 class="text-2xl font-bold text-gray-900 mb-6">Stream Schedule</h2>
+        <div class="space-y-4">
+          <div class="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
+            <div>
+              <h3 class="font-semibold text-gray-900">Speedrun Practice</h3>
+              <p class="text-gray-600">Personal best attempts & routing</p>
+            </div>
+            <div class="text-right">
+              <p class="font-medium text-purple-600">Weekdays</p>
+              <p class="text-sm text-gray-500">7:00 PM - 10:00 PM</p>
+            </div>
+          </div>
+          
+          <div class="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
+            <div>
+              <h3 class="font-semibold text-gray-900">Community Games</h3>
+              <p class="text-gray-600">Multiplayer sessions with viewers</p>
+            </div>
+            <div class="text-right">
+              <p class="font-medium text-purple-600">Saturdays</p>
+              <p class="text-sm text-gray-500">2:00 PM - 6:00 PM</p>
+            </div>
+          </div>
+          
+          <div class="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
+            <div>
+              <h3 class="font-semibold text-gray-900">Variety Content</h3>
+              <p class="text-gray-600">New games & exploration</p>
+            </div>
+            <div class="text-right">
+              <p class="font-medium text-purple-600">Sundays</p>
+              <p class="text-sm text-gray-500">1:00 PM - 5:00 PM</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="mt-6 p-4 bg-blue-50 rounded-lg">
+          <p class="text-sm text-blue-800">
+            <strong>Note:</strong> Schedule may vary during events or special streams. Follow for notifications!
+          </p>
+        </div>
+      </div>
+
+      <!-- Stream Types -->
+      <div class="bg-white rounded-lg shadow-lg p-6">
+        <h2 class="text-2xl font-bold text-gray-900 mb-6">Stream Content</h2>
+        <div class="space-y-6">
+          <div class="flex items-start space-x-4">
+            <div class="w-12 h-12 bg-blue-500 rounded-lg flex items-center justify-center flex-shrink-0">
+              <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+              </svg>
+            </div>
+            <div>
+              <h3 class="font-semibold text-gray-900 mb-2">Speedrun Shows</h3>
+              <p class="text-gray-600">
+                Live personal best attempts with commentary explaining strategies, routing decisions, and optimization techniques.
+              </p>
+            </div>
+          </div>
+          
+          <div class="flex items-start space-x-4">
+            <div class="w-12 h-12 bg-green-500 rounded-lg flex items-center justify-center flex-shrink-0">
+              <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M16 4c0-1.11.89-2 2-2s2 .89 2 2-.89 2-2 2-2-.89-2-2zM4 18v-4h2v-2.5c0-1.1.9-2 2-2h2V8c0-1.1.9-2 2-2s2 .9 2 2v1.5h2c1.1 0 2 .9 2 2V14h2v4H4z"/>
+              </svg>
+            </div>
+            <div>
+              <h3 class="font-semibold text-gray-900 mb-2">Community Sessions</h3>
+              <p class="text-gray-600">
+                Multiplayer games, viewer challenges, and interactive content where chat participation drives the experience.
+              </p>
+            </div>
+          </div>
+          
+          <div class="flex items-start space-x-4">
+            <div class="w-12 h-12 bg-purple-500 rounded-lg flex items-center justify-center flex-shrink-0">
+              <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+              </svg>
+            </div>
+            <div>
+              <h3 class="font-semibold text-gray-900 mb-2">Educational Content</h3>
+              <p class="text-gray-600">
+                Speedrun tutorials, beginner guides, and detailed breakdowns of advanced techniques and strategies.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Recent Highlights -->
+    <div class="bg-white rounded-lg shadow-lg p-6 mb-12">
+      <h2 class="text-2xl font-bold text-gray-900 mb-6">Recent Highlights</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="bg-gray-50 rounded-lg p-4">
+          <div class="h-32 bg-gradient-to-br from-blue-400 to-blue-600 rounded-lg mb-4 flex items-center justify-center">
+            <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M8 5v14l11-7z"/>
+            </svg>
+          </div>
+          <h3 class="font-semibold text-gray-900 mb-2">Crow Country PB</h3>
+          <p class="text-sm text-gray-600 mb-2">New personal best attempt with chat reactions</p>
+          <p class="text-xs text-gray-500">2 days ago • 45 min</p>
+        </div>
+        
+        <div class="bg-gray-50 rounded-lg p-4">
+          <div class="h-32 bg-gradient-to-br from-green-400 to-green-600 rounded-lg mb-4 flex items-center justify-center">
+            <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M8 5v14l11-7z"/>
+            </svg>
+          </div>
+          <h3 class="font-semibold text-gray-900 mb-2">Community Race</h3>
+          <p class="text-sm text-gray-600 mb-2">Multiplayer speedrun race with viewers</p>
+          <p class="text-xs text-gray-500">1 week ago • 1h 20min</p>
+        </div>
+        
+        <div class="bg-gray-50 rounded-lg p-4">
+          <div class="h-32 bg-gradient-to-br from-purple-400 to-purple-600 rounded-lg mb-4 flex items-center justify-center">
+            <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M8 5v14l11-7z"/>
+            </svg>
+          </div>
+          <h3 class="font-semibold text-gray-900 mb-2">Tutorial Series</h3>
+          <p class="text-sm text-gray-600 mb-2">Beginner's guide to Lunistice speedrunning</p>
+          <p class="text-xs text-gray-500">2 weeks ago • 35 min</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Stream Setup -->
+    <div class="bg-white rounded-lg shadow-lg p-6">
+      <h2 class="text-2xl font-bold text-gray-900 mb-6">Stream Setup</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div>
+          <h3 class="text-lg font-semibold text-gray-900 mb-4">Hardware</h3>
+          <ul class="space-y-2 text-gray-600">
+            <li class="flex items-center">
+              <svg class="w-4 h-4 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+              </svg>
+              Gaming PC with RTX Graphics
+            </li>
+            <li class="flex items-center">
+              <svg class="w-4 h-4 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+              </svg>
+              Mechanical Gaming Keyboard
+            </li>
+            <li class="flex items-center">
+              <svg class="w-4 h-4 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+              </svg>
+              High-DPI Gaming Mouse
+            </li>
+            <li class="flex items-center">
+              <svg class="w-4 h-4 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+              </svg>
+              Professional Microphone
+            </li>
+          </ul>
+        </div>
+        
+        <div>
+          <h3 class="text-lg font-semibold text-gray-900 mb-4">Software</h3>
+          <ul class="space-y-2 text-gray-600">
+            <li class="flex items-center">
+              <svg class="w-4 h-4 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+              </svg>
+              OBS Studio for streaming
+            </li>
+            <li class="flex items-center">
+              <svg class="w-4 h-4 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+              </svg>
+              LiveSplit for timing
+            </li>
+            <li class="flex items-center">
+              <svg class="w-4 h-4 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+              </svg>
+              Custom overlay graphics
+            </li>
+            <li class="flex items-center">
+              <svg class="w-4 h-4 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+              </svg>
+              Chat integration tools
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </main>
+</Layout>

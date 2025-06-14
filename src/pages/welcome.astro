@@ -1,0 +1,286 @@
+---
+import Layout from '../layouts/BlogPost.astro';
+import { SOCIAL_LINKS } from '../consts';
+---
+
+<Layout
+  title="Welcome - DrakeLeLionBlanc"
+  description="Welcome to DrakeLeLionBlanc's speedrunning and streaming portfolio"
+  pubDate={new Date()}
+>
+  <main class="max-w-7xl mx-auto px-4 py-8">
+    <!-- Hero Section -->
+    <div class="text-center mb-16">
+      <div class="mb-8">
+        <div class="w-32 h-32 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full mx-auto mb-6 flex items-center justify-center">
+          <span class="text-white text-4xl font-bold">DLB</span>
+        </div>
+        <h1 class="text-5xl font-bold text-gray-900 mb-4">DrakeLeLionBlanc</h1>
+        <p class="text-2xl text-gray-600 mb-6">Speedrunner & Streamer</p>
+        <p class="text-lg text-gray-500 max-w-2xl mx-auto">
+          Welcome to my portfolio! I'm passionate about speedrunning various games and sharing the journey through streaming. 
+          Explore my personal bests, event participation, and gaming showcases.
+        </p>
+      </div>
+      
+      <div class="flex flex-col sm:flex-row justify-center gap-4">
+        <a
+          href="/speedruns"
+          class="bg-blue-600 text-white px-8 py-3 rounded-lg hover:bg-blue-700 transition-colors font-semibold text-center"
+        >
+          View Speedruns
+        </a>
+        <a
+          href={SOCIAL_LINKS.twitch}
+          target="_blank"
+          class="bg-purple-600 text-white px-8 py-3 rounded-lg hover:bg-purple-700 transition-colors font-semibold text-center"
+        >
+          Watch Live
+        </a>
+      </div>
+    </div>
+
+    <!-- Quick Stats -->
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-16">
+      <div class="bg-white rounded-lg shadow-md p-6 text-center">
+        <div class="text-3xl font-bold text-blue-600 mb-2">4</div>
+        <div class="text-gray-600">Games Speedrun</div>
+      </div>
+      <div class="bg-white rounded-lg shadow-md p-6 text-center">
+        <div class="text-3xl font-bold text-green-600 mb-2">12th</div>
+        <div class="text-gray-600">Best Ranking</div>
+      </div>
+      <div class="bg-white rounded-lg shadow-md p-6 text-center">
+        <div class="text-3xl font-bold text-purple-600 mb-2">17m 16s</div>
+        <div class="text-gray-600">Fastest PB</div>
+      </div>
+      <div class="bg-white rounded-lg shadow-md p-6 text-center">
+        <div class="text-3xl font-bold text-orange-600 mb-2">Active</div>
+        <div class="text-gray-600">Streaming Status</div>
+      </div>
+    </div>
+
+    <!-- Featured Games -->
+    <div class="mb-16">
+      <h2 class="text-3xl font-bold text-gray-900 mb-8 text-center">Featured Games</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+          <div class="h-48 bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center">
+            <div class="text-white text-center">
+              <h3 class="text-2xl font-bold">Lunistice</h3>
+              <p class="text-blue-100">3D Platformer</p>
+            </div>
+          </div>
+          <div class="p-6">
+            <div class="flex justify-between items-center mb-4">
+              <h3 class="text-xl font-bold text-gray-900">Any% Glitchless</h3>
+              <span class="bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full text-sm font-medium">
+                #26
+              </span>
+            </div>
+            <p class="text-3xl font-bold text-blue-600 mb-2">27m 18s 680ms</p>
+            <p class="text-gray-600">A beautiful 3D platformer with tight controls and satisfying movement mechanics.</p>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+          <div class="h-48 bg-gradient-to-br from-green-400 to-green-600 flex items-center justify-center">
+            <div class="text-white text-center">
+              <h3 class="text-2xl font-bold">Crow Country</h3>
+              <p class="text-green-100">Survival Horror</p>
+            </div>
+          </div>
+          <div class="p-6">
+            <div class="flex justify-between items-center mb-4">
+              <h3 class="text-xl font-bold text-gray-900">Any% Restricted</h3>
+              <span class="bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full text-sm font-medium">
+                #12
+              </span>
+            </div>
+            <p class="text-3xl font-bold text-green-600 mb-2">17m 16s</p>
+            <p class="text-gray-600">A survival horror game with puzzle elements set in an abandoned theme park.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Recent Activity -->
+    <div class="mb-16">
+      <h2 class="text-3xl font-bold text-gray-900 mb-8 text-center">Recent Activity</h2>
+      <div class="bg-white rounded-lg shadow-md p-6">
+        <div class="space-y-4">
+          <div class="flex items-center space-x-4 p-4 bg-gray-50 rounded-lg">
+            <div class="w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center">
+              <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+              </svg>
+            </div>
+            <div class="flex-1">
+              <p class="font-semibold text-gray-900">New Personal Best in Crow Country</p>
+              <p class="text-gray-600">Achieved 17m 16s in Any% Restricted category</p>
+              <p class="text-sm text-gray-500">March 10, 2024</p>
+            </div>
+          </div>
+          
+          <div class="flex items-center space-x-4 p-4 bg-gray-50 rounded-lg">
+            <div class="w-12 h-12 bg-purple-500 rounded-full flex items-center justify-center">
+              <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M8 5v14l11-7z"/>
+              </svg>
+            </div>
+            <div class="flex-1">
+              <p class="font-semibold text-gray-900">Streaming Session</p>
+              <p class="text-gray-600">Practice runs and community games</p>
+              <p class="text-sm text-gray-500">Last week</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Call to Action -->
+    <div class="text-center bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg p-8 text-white">
+      <h2 class="text-3xl font-bold mb-4">Join the Community</h2>
+      <p class="text-xl mb-6 text-blue-100">
+        Follow my speedrunning journey and connect with fellow gamers
+      </p>
+      <div class="flex justify-center space-x-4">
+        <a 
+          href={SOCIAL_LINKS.twitch} 
+          target="_blank"
+          class="bg-white text-purple-600 px-6 py-3 rounded-lg hover:bg-gray-100 transition-colors font-semibold"
+        >
+          Follow on Twitch
+        </a>
+        <a 
+          href="/socials" 
+          class="border-2 border-white text-white px-6 py-3 rounded-lg hover:bg-white hover:text-purple-600 transition-colors font-semibold"
+        >
+          All Social Links
+        </a>
+      </div>
+    </div>
+  </main>
+  
+  <script>
+    // Add interactive features for Phase 3
+    document.addEventListener('DOMContentLoaded', () => {
+      // Animate stats counters when they come into view
+      const animateCounter = (element: Element, target: number) => {
+        let current = 0;
+        const increment = target / 30;
+        const timer = setInterval(() => {
+          current += increment;
+          if (current >= target) {
+            current = target;
+            clearInterval(timer);
+          }
+          element.textContent = Math.floor(current).toString();
+        }, 50);
+      };
+
+      // Intersection Observer for stats animation
+      const statsObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const element = entry.target;
+            const text = element.textContent || '0';
+            const number = parseInt(text.replace(/\D/g, ''));
+            if (number > 0 && number < 100) { // Only animate reasonable numbers
+              animateCounter(element, number);
+              statsObserver.unobserve(element);
+            }
+          }
+        });
+      });
+
+      // Observe stat numbers
+      const statNumbers = document.querySelectorAll('.text-3xl.font-bold');
+      statNumbers.forEach(el => statsObserver.observe(el));
+
+      // Add hover effects to game cards
+      const gameCards = document.querySelectorAll('.bg-white.rounded-lg.shadow-lg');
+      gameCards.forEach(card => {
+        const htmlCard = card as HTMLElement;
+        card.addEventListener('mouseenter', () => {
+          htmlCard.style.transform = 'translateY(-4px)';
+          htmlCard.style.transition = 'transform 0.3s ease';
+        });
+        
+        card.addEventListener('mouseleave', () => {
+          htmlCard.style.transform = 'translateY(0)';
+        });
+      });
+
+      // Add click animation to buttons
+      const buttons = document.querySelectorAll('a[class*="bg-"]');
+      buttons.forEach(button => {
+        const htmlButton = button as HTMLElement;
+        button.addEventListener('click', (e) => {
+          const mouseEvent = e as MouseEvent;
+          // Create ripple effect
+          const rect = htmlButton.getBoundingClientRect();
+          const ripple = document.createElement('span');
+          const size = Math.max(rect.width, rect.height);
+          const x = mouseEvent.clientX - rect.left - size / 2;
+          const y = mouseEvent.clientY - rect.top - size / 2;
+          
+          ripple.style.cssText = `
+            position: absolute;
+            width: ${size}px;
+            height: ${size}px;
+            left: ${x}px;
+            top: ${y}px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            transform: scale(0);
+            animation: ripple 0.6s linear;
+            pointer-events: none;
+          `;
+          
+          htmlButton.style.position = 'relative';
+          htmlButton.style.overflow = 'hidden';
+          htmlButton.appendChild(ripple);
+          
+          setTimeout(() => {
+            ripple.remove();
+          }, 600);
+        });
+      });
+
+      // Add CSS animation for ripple effect
+      const style = document.createElement('style');
+      style.textContent = `
+        @keyframes ripple {
+          to {
+            transform: scale(4);
+            opacity: 0;
+          }
+        }
+        
+        .fade-in {
+          animation: fadeIn 0.8s ease-in;
+        }
+        
+        @keyframes fadeIn {
+          from { opacity: 0; transform: translateY(20px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+      `;
+      document.head.appendChild(style);
+
+      // Add fade-in animation to sections
+      const sections = document.querySelectorAll('main > div');
+      const fadeObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('fade-in');
+            fadeObserver.unobserve(entry.target);
+          }
+        });
+      });
+
+      sections.forEach(section => fadeObserver.observe(section));
+    });
+  </script>
+</Layout>
