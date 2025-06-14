@@ -22,8 +22,7 @@ export const NAV_ITEMS = [
   { name: 'Events', href: '/events' },
   { name: 'Twitch', href: '/twitch' },
   { name: 'Showcases', href: '/showcases' },
-  { name: 'Socials', href: '/socials' },
-  { name: 'Blog', href: '/blog' }
+  { name: 'Fursona', href: '/fursona' },
 ] as const;
 
 // Speedrun Categories
