@@ -4,6 +4,14 @@
 export const SITE_TITLE = 'DrakeLeLionBlanc';
 export const SITE_DESCRIPTION = 'Speedrunner & Streamer - Personal bests, events, and gaming showcases';
 
+// Base path for GitHub Pages deployment
+export const BASE_PATH = '/portfolio';
+
+// Helper function to prepend base path to internal links
+export function withBasePath(path: string): string {
+  return path.startsWith('/') ? `${BASE_PATH}${path}` : `${BASE_PATH}/${path}`;
+}
+
 // Social Media Links
 export const SOCIAL_LINKS = {
   twitch: 'https://twitch.tv/drakelelionblanc',
@@ -15,14 +23,14 @@ export const SOCIAL_LINKS = {
   youtube: 'https://youtube.com/@drakelelionblanc'
 } as const;
 
-// Navigation Items
+// Navigation Items with base path
 export const NAV_ITEMS = [
-  { name: 'Welcome', href: '/welcome' },
-  { name: 'Speedruns', href: '/speedruns' },
-  { name: 'Events', href: '/events' },
-  { name: 'Twitch', href: '/twitch' },
-  { name: 'Showcases', href: '/showcases' },
-  { name: 'Fursona', href: '/fursona' },
+  { name: 'Welcome', href: '/portfolio/welcome' },
+  { name: 'Speedruns', href: '/portfolio/speedruns' },
+  { name: 'Events', href: '/portfolio/events' },
+  { name: 'Twitch', href: '/portfolio/twitch' },
+  { name: 'Showcases', href: '/portfolio/showcases' },
+  { name: 'Fursona', href: '/portfolio/fursona' },
 ] as const;
 
 // Speedrun Categories
